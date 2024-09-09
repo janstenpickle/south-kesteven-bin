@@ -46,8 +46,10 @@ def update_esphome_via_selenium(esphometarget, query):
 
             save_screenshot(driver, "1.load")
             #check if devices are up-to-date
-            search_box = driver.find_element(By.NAME, "q").send_keys(query)
-            search = driver.find_element(By.CLASS_NAME, "btn--feature").click()
+            search_box = driver.find_element(By.NAME, "q")
+            search_box.clear()
+            search_box.send_keys(query)
+            search_box.submit()
             save_screenshot(driver, "2.search")
             time.sleep(1) 
             submit = driver.find_element(By.CLASS_NAME, "btn--full").click()
@@ -67,7 +69,9 @@ def update_esphome_via_selenium(esphometarget, query):
 
         except selenium.common.exceptions.NoSuchElementException as e:
             log("Some elements could not be found in page", e)
+            print(e)
             log("ERROR: Scraping failed")
+            return 1
         return 0
 
 
