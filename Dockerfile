@@ -11,7 +11,6 @@ RUN rm -rf /var/lib/apt/lists/*
 #install python requirements
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY ./VERSION .
 COPY ./main.py .
 #start python script
 CMD ["python3", "-u", "main.py"]
